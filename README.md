@@ -1,49 +1,83 @@
-# AuditXAI — Local Prototype
+# AuditXAI — Explainable AI for Internal Audit
 
-A local, laptop-friendly Streamlit prototype for explainable internal-audit anomaly review.
+An AI-powered audit analytics prototype that helps auditors identify unusual corporate reimbursement and procurement transactions, understand the reasons behind flagged records, and prioritize cases for human review.
 
-## Included
-- Login, registration, logout, and SQLite-backed user accounts (passwords are PBKDF2-hashed).
-- Dashboard with audit metrics and charts.
-- Synthetic reimbursement/procurement dataset generator.
-- CSV upload with required-column validation.
-- Rule checks: missing invoice, repeated vendor/invoice pair, high amount, pending approval.
-- Isolation Forest anomaly detection.
-- Plain-English rule findings plus feature-deviation context for ML-flagged records.
-- Findings filters, transaction detail, CSV export, and local history for the signed-in user.
-- No API keys, cloud services, or GPU required.
+## Overview
 
-## Demo login
-- Email: `admin@auditxai.local`
-- Password: `AuditXAI@123`
+AuditXAI combines rule-based audit checks with machine learning to surface potentially unusual transactions. Instead of treating an anomaly as proof of fraud, the system provides review indicators and contextual explanations to support human decision-making.
 
-This is a local academic demo account. Change the password after first login. Do not expose this demo app to the public internet as-is.
+## Key Features
 
-## Setup (Windows)
-1. Install Python 3.11 or 3.12.
-2. Extract this ZIP.
-3. Open Command Prompt in the extracted `AuditXAI_Prototype` folder.
-4. Run:
+- **Login and Registration:** Local account management for the prototype.
+- **Audit Dashboard:** Summary metrics and visualizations of analyzed transactions.
+- **Transaction Analysis:** Upload a CSV dataset or explore synthetic demonstration data.
+- **Rule-Based Checks:** Flags issues such as missing invoices, repeated vendor–invoice combinations, duplicate transaction IDs, unusually high amounts, and pending approvals.
+- **Machine Learning:** Isolation Forest identifies transactions with unusual patterns.
+- **Explainability:** Presents audit flags and contextual reasons to help users understand why a transaction may need review.
+- **Findings Explorer:** Filter flagged records and export analysis results.
+- **Analysis History:** Stores previous analysis runs locally using SQLite.
 
-```bat
-py -3.12 -m venv .venv
+## Technology Stack
+
+- Python
+- Streamlit
+- Pandas and NumPy
+- Scikit-learn
+- Plotly
+- SQLite
+
+## Run Locally
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/vaishnavipatel-aiml/AuditXAI.git
+cd AuditXAI
+```
+
+### 2. Create and activate a virtual environment
+
+Windows:
+
+```bash
+py -m venv .venv
 .venv\Scripts\activate
-python -m pip install --upgrade pip
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+### 4. Start the application
+
+```bash
 streamlit run app.py
 ```
 
-If `py -3.12` is unavailable, use a Python version installed on your computer.
+Open the local URL displayed in the terminal.
 
-## CSV columns
-Required columns:
-`transaction_id, transaction_date, employee_id, department, transaction_type, vendor, amount, invoice_id, approval_status`
+## Dataset
 
-Use synthetic or properly authorized data only. Do not upload confidential company data to an unapproved environment.
+You can use the built-in synthetic demonstration data or upload a CSV file that follows the column requirements described in the application.
 
-## Important limitations
-- Alerts are review indicators, not proof of fraud or misconduct.
-- Isolation Forest is unsupervised; its output depends on the selected data and model settings.
-- Feature-deviation explanations are contextual clues, not SHAP values or causal explanations.
-- Synthetic demo data is for testing the workflow, not evidence of real-world accuracy.
-- The local authentication flow is suitable for a classroom prototype, not a security-audited production deployment.
+Do not upload real employee, vendor, reimbursement, or financial records to a public repository.
+
+## Responsible Use
+
+AuditXAI is an academic prototype for anomaly detection and internal audit support. An anomaly score is not a fraud probability, and a flagged transaction is not proof of misconduct. Findings should be investigated and validated by an authorized human reviewer.
+
+The current version uses local storage and is not designed for production deployment or public internet exposure.
+
+## Current Scope
+
+The prototype includes a local web interface, authentication, audit rules, anomaly detection, explanations, visualizations, and analysis history. Future work may include stronger explainability methods, broader evaluation, improved security, and testing with appropriately anonymized or synthetic datasets.
+
+## Author
+
+**Vaishnavi Patel**
+
+B.Tech — Computer Science and Engineering (AI & ML)
+
+[GitHub Profile](https://github.com/vaishnavipatel-aiml)
